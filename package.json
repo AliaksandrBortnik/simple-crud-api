@@ -4,6 +4,8 @@
   "description": "NodeJS simple API",
   "main": "index.js",
   "scripts": {
+    "start:dev": "nodemon index.js 3030",
+    "start:prod": "webpack && nodemon",
     "test": "jest"
   },
   "repository": {
@@ -20,5 +22,13 @@
   "bugs": {
     "url": "https://github.com/AliaksandrBortnik/simple-crud-api/issues"
   },
-  "homepage": "https://github.com/AliaksandrBortnik/simple-crud-api#readme"
+  "homepage": "https://github.com/AliaksandrBortnik/simple-crud-api#readme",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.15",
+    "webpack": "^5.64.4"
+  }
 }
