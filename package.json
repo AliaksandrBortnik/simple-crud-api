@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-http-api",
+  "version": "1.0.0",
+  "description": "NodeJS simple API",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliaksandrBortnik/simple-crud-api.git"
+  },
+  "keywords": [
+    "nodejs",
+    "http",
+    "api"
+  ],
+  "author": "Alex Bortnik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AliaksandrBortnik/simple-crud-api/issues"
+  },
+  "homepage": "https://github.com/AliaksandrBortnik/simple-crud-api#readme"
+}
