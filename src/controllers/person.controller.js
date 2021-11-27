@@ -35,6 +35,12 @@ async function addPerson(req, res) {
   try {
     const body = await getRequestPayload(req);
 
+    if (!Person.isValidModel(body)) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end('Invalid state of model. Check all required properties and their types');
+      return;
+    }
+
     const personData = {
       name: body.name,
       age: body.age,

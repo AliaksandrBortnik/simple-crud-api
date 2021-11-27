@@ -3,7 +3,7 @@ module.exports.getRequestPayload = (req) => {
     try {
       let payload = '';
       req.on('data', chunk => payload += chunk.toString());
-      req.on('end', async () => resolve(JSON.parse(payload)));
+      req.on('end', async () => resolve(JSON.parse(payload || '{}')));
     } catch (error) {
       reject(error);
     }

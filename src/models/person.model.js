@@ -38,10 +38,30 @@ function remove(id) {
   });
 }
 
+const requiredProps = {
+  name: 'string',
+  age: 'number',
+  hobbies: 'Array'
+};
+
+function isValidModel(model) {
+  const existingFields = Object.keys(model);
+
+  return Object.entries(requiredProps)
+    .every(([field, type]) =>
+      existingFields.includes(field) && checkType(model[field], type));
+}
+
+function checkType(value, expectedType) {
+  return expectedType === 'Array' ?
+    Array.isArray(value) : typeof value === expectedType
+}
+
 module.exports = {
   findAll,
   findById,
   add,
   update,
-  remove
+  remove,
+  isValidModel
 };

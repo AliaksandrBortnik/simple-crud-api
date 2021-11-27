@@ -1,10 +1,3 @@
-/*
-  Persons are stored as objects that have following properties:
-  id — unique identifier (string, uuid) generated on server side
-  name — person's name (string, required)
-  age — person's age (number, required)
-  hobbies — person's hobbies (['a', 'b', 'c'] or [], required)
-*/
 module.exports = {
   persons: [
     {
