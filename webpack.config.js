@@ -1,6 +1,6 @@
 module.exports = {
   target: 'node',
-  entry: './app.js',
+  entry: 'src/server.js',
   output: {
     filename: 'bundle.js'
   }

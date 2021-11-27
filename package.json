@@ -4,7 +4,7 @@
   "description": "NodeJS simple API",
   "main": "src/server.js",
   "scripts": {
-    "start:dev": "nodemon app.js",
+    "start:dev": "nodemon src/server.js",
     "start:prod": "webpack --mode=production && node dist/bundle.js",
     "test": "jest --noStackTrace --runInBand"
   },
