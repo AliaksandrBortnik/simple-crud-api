@@ -12,30 +12,30 @@ server.on('request', (req, res) => {
   switch (req.method) {
     case 'GET':
       if (req.url.match(/^\/person$/)) {
-        PersonController.getPersons(req, res);
+        PersonController.getAll(req, res);
       } else if (endsWithId(req.url)) {
-        PersonController.getPerson(req, res, getId(req.url));
+        PersonController.get(req, res, getId(req.url));
       } else {
         notFound(res);
       }
       break;
     case 'POST':
       if (req.url.match(/^\/person$/)) {
-        PersonController.addPerson(req, res);
+        PersonController.add(req, res);
       } else {
         notFound(res);
       }
       break;
     case 'PUT':
       if (endsWithId(req.url)) {
-        PersonController.updatePerson(req, res, getId(req.url));
+        PersonController.update(req, res, getId(req.url));
       } else {
         notFound(res);
       }
       break;
     case 'DELETE':
       if (endsWithId(req.url)) {
-        PersonController.removePerson(req, res, getId(req.url));
+        PersonController.remove(req, res, getId(req.url));
       } else {
         notFound(res);
       }

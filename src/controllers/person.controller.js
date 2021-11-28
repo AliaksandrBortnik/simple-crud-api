@@ -1,3 +1,4 @@
+const PersonRepo = require('../repositories/person.repository');
 const Person = require('../models/person.model');
 const { getRequestPayload } = require('../utils/request-body-parser');
 const { isValidId } = require('../utils/uuid-validator');
@@ -12,9 +13,9 @@ const {
 } = require('../services/response-writer');
 
 // Route: GET /person
-async function getPersons(req, res) {
+async function getAll(req, res) {
   try {
-    const persons = await Person.findAll();
+    const persons = await PersonRepo.findAll();
     OK(res, JSON.stringify(persons));
   } catch (error) {
     internalError(res);
@@ -22,14 +23,14 @@ async function getPersons(req, res) {
 }
 
 // Route: GET /person/:id
-async function getPerson(req, res, id) {
+async function get(req, res, id) {
   try {
     if (!isValidId(id)) {
       invalidIdFormat(res);
       return;
     }
 
-    const person = await Person.findById(id);
+    const person = await PersonRepo.findById(id);
 
     if (!person) {
       notFound(res);
@@ -43,7 +44,7 @@ async function getPerson(req, res, id) {
 }
 
 // Route: POST /person
-async function addPerson(req, res) {
+async function add(req, res) {
   try {
     const body = await getRequestPayload(req);
 
@@ -60,7 +61,7 @@ async function addPerson(req, res) {
       hobbies: body.hobbies
     };
 
-    const person = await Person.add(personData);
+    const person = await PersonRepo.add(personData);
     created(res, JSON.stringify(person));
   } catch (error) {
     internalError(res);
@@ -68,14 +69,14 @@ async function addPerson(req, res) {
 }
 
 // Route: PUT /person/:id
-async function updatePerson(req, res, id) {
+async function update(req, res, id) {
   try {
     if (!isValidId(id)) {
       invalidIdFormat(res);
       return;
     }
 
-    const person = await Person.findById(id);
+    const person = await PersonRepo.findById(id);
 
     if (!person) {
       notFound(res);
@@ -92,12 +93,12 @@ async function updatePerson(req, res, id) {
     }
 
     const personData = {
-      name: body.name || person.name,
-      age: body.age || person.age,
-      hobbies: body.hobbies || person.hobbies
+      name: body.name,
+      age: body.age,
+      hobbies: body.hobbies
     };
 
-    const updatedPerson = await Person.update(id, personData);
+    const updatedPerson = await PersonRepo.update(id, personData);
     OK(res, JSON.stringify(updatedPerson));
   } catch (error) {
     internalError(res);
@@ -105,21 +106,21 @@ async function updatePerson(req, res, id) {
 }
 
 // Route: DELETE /person/:id
-async function removePerson(req, res, id) {
+async function remove(req, res, id) {
   try {
     if (!isValidId(id)) {
       invalidIdFormat(res);
       return;
     }
 
-    const person = await Person.findById(id);
+    const person = await PersonRepo.findById(id);
 
     if (!person) {
       notFound(res);
       return;
     }
 
-    await Person.remove(id);
+    await PersonRepo.remove(id);
     noContent(res);
   } catch (error) {
     internalError(res);
@@ -127,9 +128,9 @@ async function removePerson(req, res, id) {
 }
 
 module.exports = {
-  getPersons,
-  getPerson,
-  addPerson,
-  updatePerson,
-  removePerson
+  getAll,
+  get,
+  add,
+  update,
+  remove
 }
