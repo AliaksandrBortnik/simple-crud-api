@@ -82,9 +82,9 @@ async function updatePerson(req, res, id) {
 
     const body = await getRequestPayload(req);
     const personData = {
-      name: body.name,
-      age: body.age,
-      hobbies: body.hobbies
+      name: body.name || person.name,
+      age: body.age || person.age,
+      hobbies: body.hobbies || person.hobbies
     };
 
     const updatedPerson = await Person.update(id, personData);
