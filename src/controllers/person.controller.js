@@ -84,7 +84,9 @@ async function updatePerson(req, res, id) {
 
     const body = await getRequestPayload(req);
 
-    if (!Person.hasValidPropTypes(body)) {
+    if (!Person.hasAllRequiredProps(body) ||
+        !Person.hasValidPropTypes(body)
+    ) {
       invalidRequiredProp(res);
       return;
     }
