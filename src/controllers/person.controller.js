@@ -1,15 +1,16 @@
 const Person = require('../models/person.model');
 const { getRequestPayload } = require('../utils/request-body-parser')
+const Wrapper = require('../utils/wrapper');
 
 // Route: GET /person
 async function getPersons(req, res) {
   try {
     const persons = await Person.findAll();
-
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(persons));
   } catch (error) {
-    console.log(error);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(Wrapper.error('Sorry, something went wrong.'));
   }
 }
 
@@ -20,13 +21,14 @@ async function getPerson(req, res, id) {
 
     if (!person) {
       res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end('Not found');
+      res.end(Wrapper.message('Not found.'));
     } else {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(person));
     }
   } catch (error) {
-    console.log(error);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(Wrapper.error('Sorry, something went wrong.'));
   }
 }
 
@@ -37,7 +39,7 @@ async function addPerson(req, res) {
 
     if (!Person.isValidModel(body)) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end('Invalid state of model. Check all required properties and their types');
+      res.end(Wrapper.message('Invalid state of model. Check all required properties and their types.'));
       return;
     }
 
@@ -51,7 +53,8 @@ async function addPerson(req, res) {
     res.writeHead(201, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(person));
   } catch (error) {
-    console.log(error);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(Wrapper.error('Sorry, something went wrong.'));
   }
 }
 
@@ -62,7 +65,7 @@ async function updatePerson(req, res, id) {
 
     if (!person) {
       res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end('Not found');
+      res.end(Wrapper.message('Not found.'));
     } else {
       const body = await getRequestPayload(req);
 
@@ -77,7 +80,8 @@ async function updatePerson(req, res, id) {
       res.end(JSON.stringify(person));
     }
   } catch (error) {
-    console.log(error);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(Wrapper.error('Sorry, something went wrong.'));
   }
 }
 
@@ -88,14 +92,15 @@ async function removePerson(req, res, id) {
 
     if (!person) {
       res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end('Not found');
+      res.end(Wrapper.message('Not found.'));
     } else {
       await Person.remove(id);
       res.writeHead(204, { 'Content-Type': 'application/json' });
       res.end();
     }
   } catch (error) {
-    console.log(error);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(Wrapper.error('Sorry, something went wrong.'));
   }
 }
 

@@ -1,9 +1,9 @@
-module.exports.getRequestPayload = (req) => {
+module.exports.getRequestPayload = (request) => {
   return new Promise((resolve, reject) => {
     try {
       let payload = '';
-      req.on('data', chunk => payload += chunk.toString());
-      req.on('end', async () => resolve(JSON.parse(payload || '{}')));
+      request.on('data', chunk => payload += chunk.toString());
+      request.on('end', async () => resolve(JSON.parse(payload || '{}')));
     } catch (error) {
       reject(error);
     }
