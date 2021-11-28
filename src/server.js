@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const PersonController = require('./controllers/person.controller');
-const { notFound, notSupportedVerb } = require('./utils/response-helper');
+const { notFound, notSupportedVerb } = require('./services/response-writer');
 const { getId, endsWithId } = require('./utils/url-parser');
 
 const http = require('http');

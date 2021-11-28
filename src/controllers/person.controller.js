@@ -9,7 +9,7 @@ const {
   notFound,
   internalError,
   missingRequiredProp
-} = require('../utils/response-helper');
+} = require('../services/response-writer');
 
 // Route: GET /person
 async function getPersons(req, res) {

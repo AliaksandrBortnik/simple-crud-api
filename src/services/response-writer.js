@@ -1,4 +1,4 @@
-const Wrapper = require("./wrapper");
+const Wrapper = require('../utils/wrapper');
 
 const OK = (res, content = '') => {
   res.writeHead(200, { 'Content-Type': 'application/json' });
