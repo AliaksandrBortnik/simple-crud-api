@@ -2,12 +2,13 @@ const Person = require('../models/person.model');
 const { getRequestPayload } = require('../utils/request-body-parser');
 const { isValidId } = require('../utils/uuid-validator');
 const {
+  OK,
+  created,
+  noContent,
   invalidIdFormat,
   notFound,
   internalError,
-  missingRequiredProp,
-  OK,
-  created
+  missingRequiredProp
 } = require('../utils/response-helper');
 
 // Route: GET /person
@@ -109,8 +110,7 @@ async function removePerson(req, res, id) {
     }
 
     await Person.remove(id);
-    res.writeHead(204, { 'Content-Type': 'application/json' });
-    res.end();
+    noContent(res);
   } catch (error) {
     internalError(res);
   }

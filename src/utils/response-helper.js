@@ -35,6 +35,11 @@ const missingRequiredProp = res => {
   res.end(Wrapper.message('Invalid state of model. Check all required properties and their types.'));
 }
 
+const noContent = res => {
+  res.writeHead(204, { 'Content-Type': 'application/json' });
+  res.end();
+}
+
 module.exports = {
   OK,
   created,
@@ -42,5 +47,6 @@ module.exports = {
   notSupportedVerb,
   internalError,
   invalidIdFormat,
-  missingRequiredProp
+  missingRequiredProp,
+  noContent
 }
