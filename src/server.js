@@ -1,21 +1,19 @@
 require('dotenv').config();
 
+const PersonController = require('./controllers/person.controller');
+const { notFound, notSupportedVerb } = require('./utils/response-helper');
+const { getId, endsWithId } = require('./utils/url-parser');
+
 const http = require('http');
 const server = http.createServer();
 const PORT = process.env.PORT;
-
-const PersonController = require('./controllers/person.controller');
-const { notFound, notSupportedVerb } = require('./utils/response-helper');
-
-const endsWithUuid = (url) => url.match(/\/person\/[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i)
-const getId = (url) => url.split('/').pop();
 
 server.on('request', (req, res) => {
   switch (req.method) {
     case 'GET':
       if (req.url.match(/^\/person$/)) {
         PersonController.getPersons(req, res);
-      } else if (endsWithUuid(req.url)) {
+      } else if (endsWithId(req.url)) {
         PersonController.getPerson(req, res, getId(req.url));
       } else {
         notFound(res);
@@ -29,14 +27,14 @@ server.on('request', (req, res) => {
       }
       break;
     case 'PUT':
-      if (endsWithUuid(req.url)) {
+      if (endsWithId(req.url)) {
         PersonController.updatePerson(req, res, getId(req.url));
       } else {
         notFound(res);
       }
       break;
     case 'DELETE':
-      if (endsWithUuid(req.url)) {
+      if (endsWithId(req.url)) {
         PersonController.removePerson(req, res, getId(req.url));
       } else {
         notFound(res);
