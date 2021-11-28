@@ -8,7 +8,7 @@ const {
   invalidIdFormat,
   notFound,
   internalError,
-  missingRequiredProp
+  invalidRequiredProp
 } = require('../services/response-writer');
 
 // Route: GET /person
@@ -47,8 +47,10 @@ async function addPerson(req, res) {
   try {
     const body = await getRequestPayload(req);
 
-    if (!Person.isValidModel(body)) {
-      missingRequiredProp(res);
+    if (!Person.hasAllRequiredProps(body) ||
+        !Person.hasValidPropTypes(body)
+    ) {
+      invalidRequiredProp(res);
       return;
     }
 
@@ -81,6 +83,12 @@ async function updatePerson(req, res, id) {
     }
 
     const body = await getRequestPayload(req);
+
+    if (!Person.hasValidPropTypes(body)) {
+      invalidRequiredProp(res);
+      return;
+    }
+
     const personData = {
       name: body.name || person.name,
       age: body.age || person.age,

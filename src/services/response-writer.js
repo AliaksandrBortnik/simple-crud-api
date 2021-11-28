@@ -30,9 +30,9 @@ const invalidIdFormat = res => {
   res.end(Wrapper.message('Invalid format of ID. It must be UUID.'));
 }
 
-const missingRequiredProp = res => {
+const invalidRequiredProp = res => {
   res.writeHead(400, { 'Content-Type': 'application/json' });
-  res.end(Wrapper.message('Invalid state of model. Check all required properties and their types.'));
+  res.end(Wrapper.message('Invalid state of model. Check required properties and their types.'));
 }
 
 const noContent = res => {
@@ -47,6 +47,6 @@ module.exports = {
   notSupportedVerb,
   internalError,
   invalidIdFormat,
-  missingRequiredProp,
+  invalidRequiredProp,
   noContent
 }
