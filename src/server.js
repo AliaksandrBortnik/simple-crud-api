@@ -6,7 +6,7 @@ const { getId, endsWithId } = require('./utils/url-parser');
 
 const http = require('http');
 const server = http.createServer();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 server.on('request', (req, res) => {
   switch (req.method) {
@@ -51,7 +51,7 @@ server.listen(PORT, err => {
 
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
-    console.log('Address in use, retrying...');
+    console.log('Address in use, retrying... Make sure you have read the README.md about testing if you test');
     setTimeout(() => {
       server.close();
       server.listen(PORT);
