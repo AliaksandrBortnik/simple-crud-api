@@ -1,0 +1,37 @@
+{
+  "name": "nodejs-http-api",
+  "version": "1.0.0",
+  "description": "NodeJS simple API",
+  "main": "src/server.js",
+  "scripts": {
+    "start:dev": "nodemon src/server.js",
+    "start:prod": "webpack --mode=production && node dist/bundle.js",
+    "test": "jest --noStackTrace --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliaksandrBortnik/simple-crud-api.git"
+  },
+  "keywords": [
+    "nodejs",
+    "http",
+    "api"
+  ],
+  "author": "Alex Bortnik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AliaksandrBortnik/simple-crud-api/issues"
+  },
+  "homepage": "https://github.com/AliaksandrBortnik/simple-crud-api#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.1.6",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  }
+}
